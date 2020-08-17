@@ -1,0 +1,40 @@
+version: "3"
+services:
+  application-test:
+    restart: always
+    image: application-test
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysqldb
+      - wire-mock
+    env_file:
+      - ./src/main/resources/env_variables.env
+
+  mysqldb:
+    restart: always
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=applicationdb
+    ports:
+      - "33062:3306"
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=root --execute \"show databases;\""
+      interval: 1s
+      timeout: 20s
+      retries: 120
+
+  wire-mock:
+    restart: always
+    image: mihaitatinta/wiremock-example:0.0.1
+    ports:
+      - "8083:8080"
+
+networks:
+  default:
+    external:
+      name: "test-app_default"
