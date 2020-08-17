@@ -1,10 +1,14 @@
 # Run the application
 
 The application could run:
+
 I. From InteliJ
-      - Firstly, you need to set the environemnt variable **SPRING_PROFILES_ACTIVE** with value **dev**
-      - Need to run the last two images for docker-compose.yml (mysqldb and wire-mock)
-      - You can create users for whom the account and transactions will be updated at the scheduled time.
+
+  - Firstly, you need to set the environemnt variable **SPRING_PROFILES_ACTIVE** with value **dev**
+  
+  - Need to run the last two images for docker-compose.yml (mysqldb and wire-mock)
+  
+  - You can create users for whom the account and transactions will be updated at the scheduled time.
 ```sh
  {
 	"name": "George"
