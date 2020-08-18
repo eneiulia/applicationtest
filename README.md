@@ -31,5 +31,5 @@ $ docker-compose up
  I created just two test:
 - One for controller, which is an end to end test - Usually I create a test like that for every endpoint in an application.
 - One for service - Usually I have a couple of unit tests in order to test the corner cases for methods which contains business logic.
-- Testing the security is another important thing which is not covered here
+- The security testing is another important topic which I didn't cover here
 - Also, I didn't create any integration tests for this application
