@@ -5,7 +5,6 @@ import com.company.applicationtest.model.Transaction;
 import com.company.applicationtest.model.User;
 import com.company.applicationtest.repository.TransactionRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +31,6 @@ public class TransactionService {
                 flatMap(account -> account.getTransactions().stream()).collect(Collectors.toList());
     }
 
-    @Async
     private void saveTransactions(List<Transaction> transactions) {
         transactionRepository.saveAll(transactions);
     }
