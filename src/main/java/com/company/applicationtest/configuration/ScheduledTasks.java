@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class ScheduledTasks {
 
-    private static  Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
+    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
 
-    AccountService accountService;
+    private final AccountService accountService;
 
-    TransactionService transactionService;
+    private final TransactionService transactionService;
 
     @Scheduled(cron="${update.cron}")
     public void updateAccountsAndTransactions() {

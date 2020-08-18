@@ -18,7 +18,10 @@ public class User {
 
     private String name;
 
-    @JsonManagedReference
+    private String username;
+
+    private String password;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private List<Account> accounts;

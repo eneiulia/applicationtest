@@ -9,16 +9,17 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class TransactionService {
 
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
-    private WireMockClientFacade wireMockClientFacade;
+    private final WireMockClientFacade wireMockClientFacade;
 
-    private UserService userService;
+    private final UserService userService;
 
     public void updateTransactions() {
         List<User> users = userService.getAllUsers();
@@ -26,8 +27,9 @@ public class TransactionService {
                 saveTransactions(wireMockClientFacade.getTransactions(user.getName())));
     }
 
-    public List<Transaction> getAllTransactions() {
-        return transactionRepository.findAll();
+    public List<Transaction> getAllTransactionsByUser(String username) {
+        return userService.getUserByUsername(username).getAccounts().stream().
+                flatMap(account -> account.getTransactions().stream()).collect(Collectors.toList());
     }
 
     @Async

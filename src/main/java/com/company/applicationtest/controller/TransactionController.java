@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -15,11 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 public class TransactionController {
 
-    private TransactionFacade transactionFacade;
+    private final TransactionFacade transactionFacade;
 
     @GetMapping
-    List<TransactionDto> getAllTransactions() {
-        return transactionFacade.getAllTransactions();
+    List<TransactionDto> getAllTransactionsForCurrentUser(Principal userPrincipal) {
+        return transactionFacade.getAllTransactionsByUser(userPrincipal.getName());
     }
 
 }

@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class TransactionFacade {
 
-    private TransactionService transactionService;
+    private final TransactionService transactionService;
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    public List<TransactionDto> getAllTransactions() {
-        List<Transaction> listOfTransactions = transactionService.getAllTransactions();
+    public List<TransactionDto> getAllTransactionsByUser(String username) {
+        List<Transaction> listOfTransactions = transactionService.getAllTransactionsByUser(username);
         return listOfTransactions.stream()
                 .map(transaction -> modelMapper.map(transaction, TransactionDto.class))
                 .collect(Collectors.toList());

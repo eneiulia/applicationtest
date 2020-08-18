@@ -11,17 +11,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
+import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Arrays;
 import java.util.Date;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
 public class AccountControllerEndToEndTest {
+
+    @Autowired
+    private WebApplicationContext context;
 
     @Autowired
     private MockMvc mockMvc;
@@ -34,10 +43,20 @@ public class AccountControllerEndToEndTest {
 
     private static String accountURL = "/accounts";
 
+    @BeforeTestClass
+    public void setup() {
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(SecurityMockMvcConfigurers.springSecurity())
+                .build();
+    }
+
+    @WithMockUser(username = "user1")
     @Test
     public void shouldReturnAllAccounts() throws Exception {
         User user = userRepository.save(UserUtil.newUser("Ionut"));
         Account account = accountRepository.save(AccountUtil.newAccount("1", new Date(), user));
+        user.setAccounts(Arrays.asList(account));
 
         mockMvc.perform(MockMvcRequestBuilders.get(accountURL)
                 .contentType(MediaType.APPLICATION_JSON))

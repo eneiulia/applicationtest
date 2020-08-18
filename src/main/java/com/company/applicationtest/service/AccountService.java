@@ -14,11 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 public class AccountService {
 
-    private WireMockClientFacade wireMockClientFacade;
+    private final WireMockClientFacade wireMockClientFacade;
 
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
-    private UserService userService;
+    private final UserService userService;
 
     public void updateAccounts() {
         List<User> users = userService.getAllUsers();
@@ -26,15 +26,15 @@ public class AccountService {
                 .forEach(user -> saveAccounts(wireMockClientFacade.getAccounts(user.getName()), user));
     }
 
-    public List<Account> getAllAccounts() {
-        return accountRepository.findAll();
+    public List<Account> getAllAccountsByUser(String username) {
+        return userService.getUserByUsername(username).getAccounts();
     }
 
     public void cleanupAccounts() {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -30);
         accountRepository.findAll().stream().filter(account -> account.getUpdate().before(cal.getTime()))
-                .forEach(account -> accountRepository.delete(account));
+                .forEach(accountRepository::delete);
     }
 
     private void saveAccounts(List<Account> accounts, User user) {

@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class WireMockClientFacade {
 
-    private WireMockClientService wireMockClientService;
+    private final WireMockClientService wireMockClientService;
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public List<Account> getAccounts(String name) {
         List<AccountDto> listOfAccountDtos = wireMockClientService.getAccounts(name);

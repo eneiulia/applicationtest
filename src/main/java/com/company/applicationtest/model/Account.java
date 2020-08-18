@@ -26,12 +26,10 @@ public class Account {
 
     private Double balance;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @JsonBackReference
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private List<Transaction> transactions;

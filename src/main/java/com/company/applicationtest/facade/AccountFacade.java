@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AccountFacade {
 
-    private AccountService accountService;
+    private final AccountService accountService;
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    public List<AccountDto> getAllAccounts() {
-        List<Account> listOfAccounts = accountService.getAllAccounts();
+    public List<AccountDto> getAllAccountsByUser(String username) {
+        List<Account> listOfAccounts = accountService.getAllAccountsByUser(username);
         return listOfAccounts.stream()
                 .map(account -> modelMapper.map(account, AccountDto.class))
                 .collect(Collectors.toList());

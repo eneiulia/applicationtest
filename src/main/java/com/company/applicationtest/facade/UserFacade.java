@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserFacade {
 
-    private UserService userService;
+    private final UserService userService;
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public List<UserDto> getAllUsers() {
         List<User> listOfUsers = userService.getAllUsers();

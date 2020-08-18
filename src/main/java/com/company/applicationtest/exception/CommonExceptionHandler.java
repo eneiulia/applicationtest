@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private static Logger log = LoggerFactory.getLogger(CommonExceptionHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(CommonExceptionHandler.class);
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> exception(final Exception exception) {

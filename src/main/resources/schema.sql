@@ -1,6 +1,12 @@
+DROP TABLE IF EXISTS transaction;
+DROP TABLE IF EXISTS account;
+DROP TABLE IF EXISTS user;
+
 CREATE TABLE IF NOT EXISTS user (
   id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  name VARCHAR(100) UNIQUE NOT NULL
+  name VARCHAR(100) UNIQUE NOT NULL,
+  username VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS account (
@@ -30,3 +36,7 @@ CREATE TABLE IF NOT EXISTS transaction (
     update_time DATETIME NOT NULL,
     description VARCHAR(100)
 );
+
+INSERT INTO user (name, username, password) VALUES
+    ('George', 'user_george', '$2a$10$8ye5dKOeM9mb.vlTxtbCheM55gL4otP85K8cxBpFExQsjE54CQPw6'),
+    ('Mihai', 'user_mihai', '$2a$10$8ye5dKOeM9mb.vlTxtbCheM55gL4otP85K8cxBpFExQsjE54CQPw6');

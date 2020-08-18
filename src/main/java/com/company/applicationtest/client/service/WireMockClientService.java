@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class WireMockClientService {
 
-    private WireMockClient wireMockClient;
+    private final WireMockClient wireMockClient;
 
     public List<AccountDto> getAccounts(String name) {
         return wireMockClient.getAccounts(getToken(name));
